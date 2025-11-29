@@ -1,5 +1,5 @@
 all:
-	gcc investment_sim.c -o investment_sim
+	gcc src/investment_sim.c src/investment_func.c -o investment_sim
 
 run:
 	./investment_sim
