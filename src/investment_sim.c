@@ -3,6 +3,8 @@
 
 
 int main() {
-    printf("Investment Simulator starting...\n");
+    double result = compound_interest(1000, 0.05, 10);
+
+    printf("result:%.2f...\n",result);
     return 0;
 }
