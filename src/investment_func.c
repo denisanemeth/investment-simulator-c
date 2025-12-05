@@ -13,3 +13,6 @@ double compound_with_contributions(double initial, double monthly, double rate, 
     }
     return amount;
 }
+double adjust_for_inflation(double amount,double inflaton_rate,int years){
+    return amount/pow(1+inflaton_rate,years);
+}
