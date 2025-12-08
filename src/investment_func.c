@@ -1,5 +1,8 @@
 #include "investment_func.h"
 #include <math.h>
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
 double compound_interest(double principal,double rate,int years){
     return principal*pow(1+rate,years);
 }
@@ -34,4 +37,48 @@ int find_breakeven_years(double initial,double monthly,double rate){
         }
     }
     return -1;
+}
+void simulate_scenario(simconfig*cfg,scenario*sc,year_data result[]){
+    printf("\n===Simulare scenariu:%s===\n",sc->name);
+    printf("Parametrii:Investitie=%.2f,Lunar=%.2f, Dobanda=%.2f%%, Inflatie=%.2f%%\n",cfg->initial,cfg->monthly,
+    sc->rate*100,sc->inflation*100);
+    printf("----------------\n");
+    printf("AN   |VALOARE NOMINALA   |VALOARE REALA   |DOBANDA\n");
+    printf("-----------------\n");
+    double crr_val=cfg->initial;
+    double total_invested=cfg->initial;
+    for(int yr=0;yr<=cfg->years;yr++){
+        result[yr].year=yr;
+        result[yr].value=crr_val;
+        result[yr].realValue=crr_val/pow(1+sc->inflation,(double)yr);
+        result[yr].interest_earned=crr_val-total_invested;
+        printf("%2d  │  %15.2f RON │  %13.2f RON │  +%.2f RON\n",yr,result[yr].value,result[yr].realValue,
+        result[yr].interest_earned);
+        if(yr<cfg->years){
+            crr_val+=cfg->monthly*12.0;
+            total_invested+=cfg->monthly*12.0;
+            crr_val*=(1.0+sc->rate);
+        }
+    }
+    printf("----------------");
+}
+void compare_rates(simconfig*cfg,double rates[],int numRates){
+    printf("\n--- Comparatie Rate de Dobanda ---\n");
+    printf("Investitie initiala: %.2f RON\n", cfg->initial);
+    printf("Contributii lunare: %.2f RON\n", cfg->monthly);
+    printf("Perioada: %d ani\n", cfg->years);
+    printf("---------------------------\n");
+    double total_invested=cfg->initial+(cfg->monthly*12*cfg->years);
+    printf("RATA   |VALOARE FINALA   |PROFIT NET   |ROI\n");
+    printf("---------------------------\n");
+    for(int i=0;i<numRates;i++){
+        double finalVal=compound_with_contributions(cfg->initial,cfg->monthly,
+        rates[i],cfg->years);
+        double profit=finalVal-total_invested;
+        double roi=compute_roi(total_invested,finalVal);
+        printf("%.2f%% │  %13.2f RON │  %10.2f RON │  %6.2f\n",rates[i]*100,finalVal,profit,roi);
+
+    }
+    printf("---------------------\n");
+
 }
