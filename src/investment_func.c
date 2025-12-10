@@ -82,3 +82,30 @@ void compare_rates(simconfig*cfg,double rates[],int numRates){
     printf("---------------------\n");
 
 }
+void draw_chart(year_data results[],int years){
+    double max_value=0;
+    for(int i=0;i<=years;i++){
+        if(results[i].value>max_value){
+            max_value=results[i].value;
+        }
+    }
+    if(max_value<=0){
+        printf("Nu exista date valide pentru grafic\n");
+        return;
+    }
+    int max_width=50;
+    double scale=(double)max_width/max_value;
+    printf("\n===grafic investitie===\n");
+    for(int i=0;i<=years;i++){
+       
+      
+        int bars=(int)(results[i].value*scale);
+          if(bars<1)bars=1;
+        printf("Anul %2d: ",results[i].year);
+        for(int j=0;j<bars;j++){
+            printf("#");
+        }
+        printf("\n");
+    }
+
+}
