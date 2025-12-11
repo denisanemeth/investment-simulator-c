@@ -109,3 +109,21 @@ void draw_chart(year_data results[],int years){
     }
 
 }
+int export_to_csv(const char*filename,year_data results[],int years){
+   FILE *f=fopen(filename,"w");
+   if(!f){
+    printf("Eroare la deschiderea fisierului!\n");
+    return -1;
+   } 
+   fprintf(f,"An,Valoare Nominala,Valoare reala,Dobanda castigata\n");
+   for(int i=0;i<=years;i++){
+    fprintf(f,"%d,%.2f,%.2f,%.2f\n",results[i].year,results[i].value,results[i].realValue,results[i].interest_earned);
+   
+   }
+ 
+    fclose(f);
+    printf("Datele au fost exportate cu succes in %s\n",filename);
+    return 0;
+   
+
+}
