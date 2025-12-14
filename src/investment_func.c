@@ -127,3 +127,21 @@ int export_to_csv(const char*filename,year_data results[],int years){
    
 
 }
+double monte_carlo_simulation(simconfig *cfg, int num_sim, double min_rate, double max_rate){
+    double *results=malloc(sizeof(double)*num_sim);
+    if(!results){
+        printf("eroare alocare memorie monte carlo\n");
+        return -1;
+    }
+    double sum=0.0;
+    for(int i=0;i<num_sim;i++){
+        double rand_rate=min_rate+((double)rand()/(double)RAND_MAX)*(max_rate-min_rate);
+        double final_val=compound_with_contributions(cfg->initial,cfg->monthly,rand_rate,cfg->years);
+        results[i]=final_val;
+        sum+=final_val;
+    }
+    double average=sum/num_sim;
+    free(results);
+    return average;
+
+}

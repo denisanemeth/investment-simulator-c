@@ -23,4 +23,7 @@ double compute_roi(double invested,double final);
 int find_breakeven_years(double initial,double monthly,double rate);
 void simulate_scenario(simconfig *cfg, scenario *sc, year_data results[]);
 void compare_rates(simconfig *cfg, double rates[], int num_rates);
+double monte_carlo_simulation(simconfig *cfg, int num_sim, double min_rate, double max_rate);
+
+
 #endif

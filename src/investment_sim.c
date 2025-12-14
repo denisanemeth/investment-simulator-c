@@ -39,6 +39,10 @@ int main() {
    
     int be = find_breakeven_years(cfg.initial, cfg.monthly, cfg.rate);
     printf("\nBreak-even year: %d\n", be);
+    double avg = monte_carlo_simulation(&cfg, 1000, 0.04, 0.08);
+
+printf("Monte Carlo (%d simulari):\n", 1000);
+printf("Valoare finala medie: %.2f RON\n", avg);
 
     return 0;
     
