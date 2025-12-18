@@ -105,5 +105,28 @@ make clean
 ```
 
 ---
+## Docker Hub
+
+The project is available as a Docker image on Docker Hub.
+
+### Pull and run:
+```bash
+docker pull denisanemeth/investment-simulator:latest
+docker run --rm denisanemeth/investment-simulator:latest --initial 10000 --rate 0.07 --years 20
+```
+
+**Docker Hub:** https://hub.docker.com/r/denisanemeth/investment-simulator
+
+### Examples:
+```bash
+# With monthly contributions
+docker run --rm denisanemeth/investment-simulator:latest --initial 5000 --monthly 500 --rate 0.06 --years 10
+
+# Rate comparison
+docker run --rm denisanemeth/investment-simulator:latest --compare "0.03,0.05,0.07,0.10" --initial 10000 --years 20
+
+# Monte Carlo simulation
+docker run --rm denisanemeth/investment-simulator:latest --scenarios 500 --rate_range "0.03-0.09" --initial 10000 --years 15
+```
 
 **Note:** Educational project.
