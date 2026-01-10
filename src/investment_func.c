@@ -17,7 +17,7 @@ double compound_with_contributions(double initial, double monthly, double rate, 
     return amount;
 }
 double adjust_for_inflation(double amount,double inflation_rate,int years){
-    return amount/pow(1+inflaton_rate,years);
+    return amount/pow(1+inflation_rate,years);
 }
 double compute_roi(double invested,double final){
     if(invested <= 0) {
