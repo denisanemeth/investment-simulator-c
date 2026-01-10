@@ -16,10 +16,13 @@ double compound_with_contributions(double initial, double monthly, double rate, 
     }
     return amount;
 }
-double adjust_for_inflation(double amount,double inflaton_rate,int years){
+double adjust_for_inflation(double amount,double inflation_rate,int years){
     return amount/pow(1+inflaton_rate,years);
 }
 double compute_roi(double invested,double final){
+    if(invested <= 0) {
+        return 0.0;  
+    }
     return (final-invested)/invested;
 }
 int find_breakeven_years(double initial,double monthly,double rate){
@@ -145,3 +148,4 @@ double monte_carlo_simulation(simconfig *cfg, int num_sim, double min_rate, doub
     return average;
 
 }
+
